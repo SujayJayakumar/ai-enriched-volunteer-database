@@ -56,7 +56,7 @@ def show_mentors(limit, warn_uncertain=False):
         print(f"   Skills: {skills}")
 
         if warn_uncertain and persona == "Uncertain":
-            print("   ⚠️  Warning: Low-confidence AI classification. Human review recommended.")
+            print("Warning: Low-confidence AI classification. Human review recommended.")
 
         print("-" * 40)
 
@@ -92,3 +92,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
