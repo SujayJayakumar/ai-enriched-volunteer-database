@@ -37,11 +37,11 @@ def enrich_member(member_id, bio, config):
             retries=config["enrichment"]["retry_attempts"],
         )
     except Exception as e:
-        # 🔍 CRITICAL DEBUG LOG
+        # CRITICAL DEBUG LOG
         print("LLM ERROR:", e)
         return False
 
-    # 🔍 Log raw output BEFORE parsing
+    # Log raw output BEFORE parsing
     print("Raw LLM output:", raw)
 
     try:
@@ -117,3 +117,4 @@ def persist_enrichment(
 
     conn.commit()
     conn.close()
+
