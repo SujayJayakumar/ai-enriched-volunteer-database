@@ -3,7 +3,6 @@ import time
 import json
 import requests
 
-# ✅ CORRECT base URL (no {model} here)
 HF_API_URL = "https://router.huggingface.co/models/"
 HF_TOKEN = os.getenv("HF_API_TOKEN")
 
@@ -105,3 +104,4 @@ def local_fallback(prompt_text):
         "persona": persona,
         "confidence": confidence
     })
+
