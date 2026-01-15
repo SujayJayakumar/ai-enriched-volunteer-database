@@ -1,27 +1,28 @@
 import os
-import json
 from groq import Groq
+
 
 class LLMError(Exception):
     pass
 
 
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+def get_client():
+    api_key = os.getenv("GROQ_API_KEY")
+    if not api_key:
+        raise LLMError("GROQ_API_KEY is not set")
+    return Groq(api_key=api_key)
 
 
-def call_groq(prompt_text, model, temperature):
-    try:
-        response = client.chat.completions.create(
-            model=model,
-            messages=[
-                {"role": "system", "content": "You are a careful data extraction assistant."},
-                {"role": "user", "content": prompt_text},
-            ],
-            temperature=temperature,
-        )
+def call_groq(prompt_text, model, temperature=0.2):
+    client = get_client()
 
-        content = response.choices[0].message.content
-        return content
+    response = client.chat.completions.create(
+        model=model,
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": prompt_text},
+        ],
+        temperature=temperature,
+    )
 
-    except Exception as e:
-        raise LLMError(str(e))
+    return response.choices[0].message.content
