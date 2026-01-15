@@ -1,0 +1,26 @@
+persona_v1:
+  system: >
+    You extract structured insights from volunteer bios.
+    You must only use information explicitly present in the text.
+    Do not speculate or assume missing details.
+
+  user: >
+    Analyze the following bio or comment.
+
+    Tasks:
+    1. Extract explicit skills mentioned (technical, financial, mentoring, etc.).
+    2. Classify the person into ONE persona:
+       - Mentor Material
+       - Needs Guidance
+       - Passive
+    3. Provide a confidence score between 0 and 1 that reflects how certain you are.
+
+    Respond ONLY in valid JSON using this schema:
+    {
+      "skills": [string],
+      "persona": string,
+      "confidence": number
+    }
+
+    Bio:
+    {{bio}}

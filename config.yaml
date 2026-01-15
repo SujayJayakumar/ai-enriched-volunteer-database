@@ -1,0 +1,18 @@
+llm:
+  provider: huggingface
+  model: mistralai/Mistral-7B-Instruct-v0.2
+  temperature: 0.2
+  confidence_threshold: 0.6
+
+enrichment:
+  prompt_version: persona_v1
+  retry_attempts: 2
+
+ranking:
+  weights:
+    confidence: 0.5
+    recency: 0.3
+    skill_match: 0.2
+
+logging:
+  level: INFO
