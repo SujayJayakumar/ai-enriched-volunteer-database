@@ -142,7 +142,11 @@ Rather than silently failing or blocking the system, the enrichment layer was de
 * Maintains confidence handling  
 * Keeps the pipeline fully functional for demonstration and evaluation  
 
-The abstraction allows switching back to a live LLM provider (e.g. Groq, OpenAI) without refactoring.
+The enrichment layer is provider-agnostic and currently integrates Groq as the primary live LLM provider. The Groq client is initialized lazily to avoid import-time dependency on API keys.
+
+If the `GROQ_API_KEY` environment variable is not set or the provider is unavailable, the system degrades gracefully to a deterministic local fallback that preserves the same JSON contract and confidence handling.
+
+This ensures the pipeline remains runnable for reviewers while still supporting live AI enrichment when credentials are provided.
 
 ---
 
