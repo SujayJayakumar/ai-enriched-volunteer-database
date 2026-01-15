@@ -63,18 +63,15 @@ def main():
     # AI enrichment (LIMITED for free-tier safety)
     MAX_ENRICH = 1  
 
-    for i, (member_id, row) in enumerate(member_rows):
-        if i >= MAX_ENRICH:
-            break
-
-        print(f"Enriching member {i+1}/{len(member_rows)}...")
+    # AI enrichment
+    for i, (member_id, row) in enumerate(member_rows, start=1):
+        print(f"Enriching member {i}/{len(member_rows)}...")
         enrich_member(member_id, row["bio"], config)
 
-    print(f"Ingested and enriched {min(len(member_rows), MAX_ENRICH)} members.")
+    print(f"Ingested and enriched {len(member_rows)} members.")
 
 
 
 if __name__ == "__main__":
     main()
     
-

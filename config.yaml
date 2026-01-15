@@ -1,8 +1,9 @@
 llm:
-  provider: huggingface
-  model: mistralai/Mistral-7B-Instruct-v0.2
+  provider: groq
+  model: llama-3.1-8b-instant
   temperature: 0.2
   confidence_threshold: 0.6
+
 
 enrichment:
   prompt_version: persona_v1

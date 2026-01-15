@@ -51,10 +51,24 @@ def enrich_member(member_id, bio, config):
         print("RAW TEXT WAS:", raw)
         return False
 
-    persona = data.get("persona")
-    confidence = float(data.get("confidence", 0))
-    skills = data.get("skills", [])
+    # -------------------------------
+    # ✅ NORMALIZATION & SAFETY LOGIC
+    # -------------------------------
 
+    persona = data.get("persona")
+
+    # Cap confidence to avoid absolute certainty
+    confidence = min(float(data.get("confidence", 0)), 0.95)
+
+    # Normalize skills (clean casing, remove noise)
+    raw_skills = data.get("skills", [])
+    skills = [
+        s.strip().title()
+        for s in raw_skills
+        if isinstance(s, str) and s.strip()
+    ]
+
+    # Low-confidence flagging
     if confidence < config["llm"]["confidence_threshold"]:
         persona = "Uncertain"
 
@@ -68,7 +82,6 @@ def enrich_member(member_id, bio, config):
     )
 
     return True
-
 
 
 def persist_enrichment(
@@ -117,4 +130,3 @@ def persist_enrichment(
 
     conn.commit()
     conn.close()
-
