@@ -44,23 +44,23 @@ def run_etl(csv_path):
 
 
 def main():
-    # 1️⃣ Load config
+    # Load config
     with open("config.yaml", "r", encoding="utf-8") as f:
         config = yaml.safe_load(f)
 
-    # 2️⃣ Initialize DB + schema
+    # Initialize DB + schema
     initialize_db()
 
-    # 3️⃣ ETL
+    # ETL
     rows = run_etl("data/members_raw.csv")
 
-    # 4️⃣ Insert truth + capture DB IDs
+    # Insert truth + capture DB IDs
     member_rows = []
     for row in rows:
         member_id = insert_member(row)
         member_rows.append((member_id, row))
 
-    # 5️⃣ AI enrichment (LIMITED for free-tier safety)
+    # AI enrichment (LIMITED for free-tier safety)
     MAX_ENRICH = 1  
 
     for i, (member_id, row) in enumerate(member_rows):
@@ -77,3 +77,4 @@ def main():
 if __name__ == "__main__":
     main()
     
+
